@@ -344,3 +344,50 @@ Matrix Matrix::inverse() {
 
     return inv;
 }
+
+// Shaowy05: Implemented isSquare function
+bool Matrix::isSquare() {
+    return height == width;
+}
+
+// Shaowy05: Implementing upper and lower triangular functions
+bool Matrix::isUpperTriangular() {
+    if (!isSquare()) return NAN;
+
+    bool isUpperTriangular = true;
+
+    for (int i = 2; i <= height; i++) {
+        for (int j = 1; j <= i - 1; j++) {
+            if (element(i, j) != 0) isUpperTriangular = false;
+        }
+    }
+
+    return isUpperTriangular;
+}
+
+bool Matrix::isStrictlyUpperTriangular() {
+
+    if (!isSquare()) return NAN;
+
+    bool isUpperTriangular = true;
+
+    for (int i = 1; i <= height; i++) {
+        for (int j = 1; j <= i; j++) {
+            if (element(i, j) != 0) isUpperTriangular = false;
+        }
+    }
+
+    return isUpperTriangular;
+
+}
+
+// Using the transpose() method to define Lower Triangular methods
+bool Matrix::isLowerTriangular() {
+    Matrix t = this->transpose();
+    return t.isUpperTriangular();
+}
+
+bool Matrix::isStrictlyLowerTriangular() {
+    Matrix t = this->transpose();
+    return t.isStrictlyUpperTriangular();
+}
