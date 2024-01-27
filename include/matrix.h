@@ -62,6 +62,18 @@ public:
     bool invertible();
 
     Matrix inverse();
+
+    // Shaowy05: Is Square
+    bool isSquare();
+
+    // Shaowy05: Upper and Lower Triangular Matrices
+    bool isUpperTriangular();
+
+    bool isStrictlyUpperTriangular();
+
+    bool isLowerTriangular();
+
+    bool isStrictlyLowerTriangular();
 };
 
 
