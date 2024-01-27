@@ -7,6 +7,7 @@
 #include "columnVector.h"
 #include "matrix.h"
 #include <string>
+#include <set>
 
 ColumnVector e(int e, int r);
 

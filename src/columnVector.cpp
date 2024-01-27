@@ -55,6 +55,10 @@ ColumnVector ColumnVector::operator*(double lambda) {
     return {height, newVect};
 }
 
+bool ColumnVector::operator==(const ColumnVector &obj) {
+    return vector == obj.vector;
+}
+
 double ColumnVector::length() {
     return sqrt(dotP(*this, *this));
 }

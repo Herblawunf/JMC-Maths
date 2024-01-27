@@ -26,6 +26,8 @@ public:
 
     ColumnVector operator*(double lambda);
 
+    bool operator==(ColumnVector const& obj);
+
     double length();
 
     bool isUnit();
