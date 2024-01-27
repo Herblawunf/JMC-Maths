@@ -12,4 +12,5 @@ add_executable(la src/main.cpp
         include/linearEquation.h
         src/linearEquation.cpp
         include/LinearSystem.h
-        src/LinearSystem.cpp)
+        src/LinearSystem.cpp
+        src/vectorSets.cpp)

@@ -74,3 +74,15 @@ ColumnVector ColumnVector::normalise() {
 
     return (1 / len) * *this;
 }
+
+double ColumnVector::magnitude() const {
+    double sum = 0;
+    for (auto e : vector) {
+        sum += pow(e, 2);
+    }
+    return pow(sum, 0.5);
+}
+
+bool ColumnVector::operator<(ColumnVector const &obj) const {
+    return magnitude() < obj.magnitude();
+}

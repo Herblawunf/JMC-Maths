@@ -33,6 +33,10 @@ public:
     bool isUnit();
 
     ColumnVector normalise();
+
+    double magnitude() const;
+
+    bool operator<(ColumnVector const &obj) const;
 };
 
 #endif //LA_COLUMNVECTOR_H
