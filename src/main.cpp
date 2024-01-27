@@ -24,6 +24,7 @@ int main() {
 
 
     cout << orthogonal(vs) << '\n';
+    cout << orthonormal(vs) << '\n';
 
     LinearEquation eq = LinearEquation({1, 0, 1, 2}, 6);
     LinearEquation eq2 = LinearEquation({0, 1, -2}, -3);

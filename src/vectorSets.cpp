@@ -14,3 +14,12 @@ bool orthogonal(std::set<ColumnVector> vecs) {
     }
     return true;
 }
+
+bool orthonormal(std::set<ColumnVector> vecs) {
+    if (!orthogonal(vecs)) return false;
+
+    for (auto i : vecs) {
+        if (!i.isUnit()) return false;
+    }
+    return true;
+}

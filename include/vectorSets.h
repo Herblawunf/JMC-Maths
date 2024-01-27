@@ -9,4 +9,6 @@
 
 bool orthogonal(std::set<ColumnVector> vecs);
 
+bool orthonormal(std::set<ColumnVector> vecs);
+
 #endif //LA_VECTORSETS_H
