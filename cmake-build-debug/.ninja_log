@@ -1,0 +1,17 @@
+# ninja log v5
+5	1665	1706371737579647349	CMakeFiles/la.dir/src/matrix.cpp.o	208e7aaec49497ba
+5	1154	1706371737067377737	CMakeFiles/la.dir/src/operations.cpp.o	723268117958cab3
+6	1334	1706371737237389522	CMakeFiles/la.dir/src/columnVector.cpp.o	1fb5e7920b673e4c
+6	1345	1706371737249495390	CMakeFiles/la.dir/src/utilities.cpp.o	227bad11e017c704
+1154	2072	1706371737990550257	CMakeFiles/la.dir/src/LinearSystem.cpp.o	15c89c402ef539fd
+2072	2233	1706371738152986188	la	19ada19d0e28b4a8
+3	1431	1706371737342007015	CMakeFiles/la.dir/src/main.cpp.o	80caa77c461f5fb5
+6	1382	1706371737295174128	CMakeFiles/la.dir/src/linearEquation.cpp.o	cb50e65ca189638d
+4	1042	1706373544176890812	CMakeFiles/la.dir/src/operations.cpp.o	c35f726bc2b5abdf
+4	1060	1706373544201963474	CMakeFiles/la.dir/src/columnVector.cpp.o	47f812a44c964a05
+5	1121	1706373544262477416	CMakeFiles/la.dir/src/utilities.cpp.o	7423c7675c6b0ad1
+6	1176	1706373544318712929	CMakeFiles/la.dir/src/linearEquation.cpp.o	3432ead3a38d0ff9
+4	1298	1706373544438631081	CMakeFiles/la.dir/src/main.cpp.o	f16c5d6112a2f9f2
+4	1460	1706373544602406746	CMakeFiles/la.dir/src/matrix.cpp.o	918fe87df045746
+1042	1991	1706373545136166986	CMakeFiles/la.dir/src/LinearSystem.cpp.o	3ecf62987ae9c4e1
+1991	2170	1706373545314647238	la	19ada19d0e28b4a8
