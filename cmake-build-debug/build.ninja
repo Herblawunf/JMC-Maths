@@ -97,6 +97,12 @@ build CMakeFiles/la.dir/src/vectorSets.cpp.o: CXX_COMPILER__la_unscanned_Debug /
   OBJECT_DIR = CMakeFiles/la.dir
   OBJECT_FILE_DIR = CMakeFiles/la.dir/src
 
+build CMakeFiles/la.dir/src/polynomial.cpp.o: CXX_COMPILER__la_unscanned_Debug /Users/dylanb/CLionProjects/JMC-Maths/src/polynomial.cpp || cmake_object_order_depends_target_la
+  DEP_FILE = CMakeFiles/la.dir/src/polynomial.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/la.dir
+  OBJECT_FILE_DIR = CMakeFiles/la.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target la
@@ -105,7 +111,7 @@ build CMakeFiles/la.dir/src/vectorSets.cpp.o: CXX_COMPILER__la_unscanned_Debug /
 #############################################
 # Link the executable la
 
-build la: CXX_EXECUTABLE_LINKER__la_Debug CMakeFiles/la.dir/src/main.cpp.o CMakeFiles/la.dir/src/matrix.cpp.o CMakeFiles/la.dir/src/operations.cpp.o CMakeFiles/la.dir/src/columnVector.cpp.o CMakeFiles/la.dir/src/utilities.cpp.o CMakeFiles/la.dir/src/linearEquation.cpp.o CMakeFiles/la.dir/src/LinearSystem.cpp.o CMakeFiles/la.dir/src/vectorSets.cpp.o
+build la: CXX_EXECUTABLE_LINKER__la_Debug CMakeFiles/la.dir/src/main.cpp.o CMakeFiles/la.dir/src/matrix.cpp.o CMakeFiles/la.dir/src/operations.cpp.o CMakeFiles/la.dir/src/columnVector.cpp.o CMakeFiles/la.dir/src/utilities.cpp.o CMakeFiles/la.dir/src/linearEquation.cpp.o CMakeFiles/la.dir/src/LinearSystem.cpp.o CMakeFiles/la.dir/src/vectorSets.cpp.o CMakeFiles/la.dir/src/polynomial.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk
   OBJECT_DIR = CMakeFiles/la.dir
   POST_BUILD = :

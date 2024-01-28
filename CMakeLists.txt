@@ -13,4 +13,6 @@ add_executable(la src/main.cpp
         src/linearEquation.cpp
         include/LinearSystem.h
         src/LinearSystem.cpp
-        src/vectorSets.cpp)
+        src/vectorSets.cpp
+        include/polynomial.h
+        src/polynomial.cpp)
