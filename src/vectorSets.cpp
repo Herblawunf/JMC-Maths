@@ -4,12 +4,19 @@
 
 #include "../include/vectorSets.h"
 #include "../include/operations.h"
+#include <iostream>
+
+using namespace std;
 
 bool orthogonal(std::set<ColumnVector> vecs) {
     for (auto vec : vecs) {
         for (auto vec2 : vecs) {
             if (vec == vec2) continue;
-            if (dotP(vec, vec2) != 0) return false;
+            if (dotP(vec, vec2) != 0) {
+                cout << vec.toString() << vec2.toString() << endl;
+                cout << dotP(vec, vec2) <<endl;
+                return false;
+            }
         }
     }
     return true;

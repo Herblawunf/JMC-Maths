@@ -4,6 +4,8 @@
 
 #include "../include/matrix.h"
 #include "../include/utilities.h"
+#include "../include/operations.h"
+#include "../include/vectorSets.h"
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -390,4 +392,22 @@ bool Matrix::isLowerTriangular() {
 bool Matrix::isStrictlyLowerTriangular() {
     Matrix t = this->transpose();
     return t.isStrictlyUpperTriangular();
+}
+
+bool Matrix::isOrthogonal() {
+    // return (*this) * transpose() == identity(width);
+
+    std::set<ColumnVector> cs;
+    for(auto col : columns()) {
+        cs.insert(ColumnVector(col));
+    }
+    return orthogonal(cs);
+}
+
+bool Matrix::isOrthonormal() {
+    std::set<ColumnVector> cs;
+    for(auto col : columns()) {
+        cs.insert(ColumnVector(col));
+    }
+    return orthonormal(cs);
 }

@@ -74,6 +74,12 @@ public:
     bool isLowerTriangular();
 
     bool isStrictlyLowerTriangular();
+
+    // Herblawunf: Orthonormal and Orthogonal
+
+    bool isOrthogonal();
+
+    bool isOrthonormal();
 };
 
 

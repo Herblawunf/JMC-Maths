@@ -11,20 +11,16 @@
 using namespace std;
 
 int main() {
-    std::vector<double> k = {0, 1, 2, 1, 0, 3, 4, -3, 8};
+    double x = 2.0/3.0, y = -1.0/3.0;
+    std::vector<double> k = {1, x, 0, 1, y, 0.5, 1, y, -0.5};
     Matrix a = Matrix(3, 3, k);
     set<ColumnVector> vs;
-    ColumnVector v1 = ColumnVector({3, 1, 1});
-    ColumnVector v2 = ColumnVector({-1, 2, 1});
-    ColumnVector v3 = ColumnVector({-0.5, -2, 3.5});
 
-    vs.insert(v1);
-    vs.insert(v2);
-    vs.insert(v3);
+    a.print();
 
+    (a * a.transpose()).print();
 
-    cout << orthogonal(vs) << '\n';
-    cout << orthonormal(vs) << '\n';
+    cout << a.isOrthogonal() << endl;
 
     LinearEquation eq = LinearEquation({1, 0, 1, 2}, 6);
     LinearEquation eq2 = LinearEquation({0, 1, -2}, -3);
