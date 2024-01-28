@@ -6,6 +6,7 @@
 #include "../include/linearEquation.h"
 #include "../include/LinearSystem.h"
 #include "../include/vectorSets.h"
+#include "../include/polynomial.h"
 #include <set>
 
 using namespace std;
@@ -28,6 +29,10 @@ int main() {
 
     // sys.printSolutions();
     // LinearSystem({eq, eq2}).augmentedMatrix().print();
+
+    Polynomial p{{{3, 4}, {3, 0}}};
+
+    p.differentiate().print();
 
     return 0;
 }
