@@ -16,11 +16,9 @@ int main() {
     Matrix a = Matrix(3, 3, k);
     set<ColumnVector> vs;
 
-    a.print();
+    // (a * a.transpose()).print();
 
-    (a * a.transpose()).print();
-
-    cout << a.isOrthogonal() << endl;
+    cout << identity(5).isSymmetric() << endl;
 
     LinearEquation eq = LinearEquation({1, 0, 1, 2}, 6);
     LinearEquation eq2 = LinearEquation({0, 1, -2}, -3);

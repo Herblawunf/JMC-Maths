@@ -80,6 +80,8 @@ public:
     bool isOrthogonal();
 
     bool isOrthonormal();
+
+    bool isSymmetric();
 };
 
 

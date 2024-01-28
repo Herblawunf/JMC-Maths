@@ -411,3 +411,7 @@ bool Matrix::isOrthonormal() {
     }
     return orthonormal(cs);
 }
+
+bool Matrix::isSymmetric() {
+    return (*this) == transpose();
+}
