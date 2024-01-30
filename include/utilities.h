@@ -8,6 +8,7 @@
 #include "matrix.h"
 #include <string>
 #include <set>
+#include <iostream>
 
 ColumnVector e(int e, int r);
 
@@ -24,5 +25,15 @@ std::vector<double> flatten(std::vector<std::vector<double>> v);
 bool all(std::vector<double> v, bool (*func) (double));
 
 std::vector<double> concat(std::vector<double> v1, std::vector<double> v2);
+
+double findAllCoefficients(int x, std::vector<std::pair<double, int>> pairs);
+
+template <typename T> void print(std::vector<T> vec) {
+    std::cout << "[ ";
+    for (int i = 0; i < vec.size() - 1; i++) {
+        std::cout << vec[i] << ", ";
+    }
+    std::cout << vec.back() << " ]" << std::endl;
+}
 
 #endif //LA_UTILITIES_H

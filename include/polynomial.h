@@ -17,6 +17,10 @@ public:
     Polynomial differentiate();
 
     void print();
+
+    int degree();
+
+    std::vector<double> solve(double equals);
 };
 
 

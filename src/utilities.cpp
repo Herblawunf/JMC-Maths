@@ -77,3 +77,13 @@ std::vector<double> concat(std::vector<double> v1, std::vector<double> v2) {
 
     return r;
 }
+
+double findAllCoefficients(int x, std::vector<std::pair<double, int>> pairs) {
+    double sum = 0;
+
+    for (auto pair : pairs) {
+        if (pair.second == x) sum += pair.first;
+    }
+
+    return sum;
+};

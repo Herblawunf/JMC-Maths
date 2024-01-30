@@ -347,7 +347,7 @@ Matrix Matrix::inverse() {
     return inv;
 }
 
-// Shaowy05: Implemented isSquare function
+// Freddie05: Implemented isSquare function
 bool Matrix::isSquare() {
     return height == width;
 }

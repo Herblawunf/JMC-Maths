@@ -19,7 +19,7 @@ int main() {
 
     // (a * a.transpose()).print();
 
-    cout << identity(5).isSymmetric() << endl;
+    // cout << identity(5).isSymmetric() << endl;
 
     LinearEquation eq = LinearEquation({1, 0, 1, 2}, 6);
     LinearEquation eq2 = LinearEquation({0, 1, -2}, -3);
@@ -30,9 +30,11 @@ int main() {
     // sys.printSolutions();
     // LinearSystem({eq, eq2}).augmentedMatrix().print();
 
-    Polynomial p{{{3, 4}, {3, 0}}};
+    Polynomial p{{{3, 2}, {-3, 0}, {2, 2}}};
 
-    p.differentiate().print();
+    print(p.solve(0));
+
+    p.print();
 
     return 0;
 }
