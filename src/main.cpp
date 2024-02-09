@@ -36,5 +36,9 @@ int main() {
 
     p.print();
 
+    Matrix e = Matrix(2, 2, {1, 6, 5, 2});
+
+    cout << e.isEigenvalue(7) << endl;
+
     return 0;
 }

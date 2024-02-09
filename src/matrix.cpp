@@ -415,3 +415,8 @@ bool Matrix::isOrthonormal() {
 bool Matrix::isSymmetric() {
     return (*this) == transpose();
 }
+
+bool Matrix::isEigenvalue(double lambda) {
+    Matrix m = *this + (- lambda) * identity(height);
+    return !m.invertible();
+}

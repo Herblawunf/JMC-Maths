@@ -82,6 +82,8 @@ public:
     bool isOrthonormal();
 
     bool isSymmetric();
+
+    bool isEigenvalue(double lambda);
 };
 
 
