@@ -9,13 +9,15 @@
 
 Matrix operator*(Matrix mat1, Matrix mat2);
 
-Matrix operator*(Matrix mat, ColumnVector v);
+Matrix operator*(Matrix mat, ColumnVector<double> v);
 
-Matrix operator*(ColumnVector v, Matrix mat);
+Matrix operator*(ColumnVector<double> v, Matrix mat);
 
-double dotP(ColumnVector c1, ColumnVector c2);
+template<class T>
+double dotP(ColumnVector<T> c1, ColumnVector<T> c2);
 
-ColumnVector operator*(double lambda, ColumnVector c);
+template<class T>
+ColumnVector<T> operator*(T lambda, ColumnVector<T> c);
 
 Matrix operator*(double lambda, Matrix m);
 

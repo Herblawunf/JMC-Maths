@@ -7,8 +7,10 @@
 #include <set>
 #include "columnVector.h"
 
-bool orthogonal(std::set<ColumnVector> vecs);
+template<class T>
+bool orthogonal(std::set<ColumnVector<T> > vecs);
 
-bool orthonormal(std::set<ColumnVector> vecs);
+template<class T>
+bool orthonormal(std::set<ColumnVector<T> > vecs);
 
 #endif //LA_VECTORSETS_H

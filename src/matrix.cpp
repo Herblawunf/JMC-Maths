@@ -45,7 +45,7 @@ double Matrix::determinant() {
         return NAN;
     } else if (height == 0) return 1.0;
 
-    std::vector<std::vector<double>> nested = generateNested();
+    std::vector<std::vector<double> > nested = generateNested();
     std::vector<double> first = nested[0];
     nested.erase(nested.begin());
     double det = 0.0;
@@ -64,8 +64,8 @@ double Matrix::determinant() {
     return det;
 }
 
-std::vector<std::vector<double>> Matrix::generateNested() {
-    std::vector<std::vector<double>> ret = {};
+std::vector<std::vector<double> > Matrix::generateNested() {
+    std::vector<std::vector<double> > ret = {};
 
     for (int i = 0; i < height; i++) {
         std::vector<double> temp = {};
@@ -78,9 +78,9 @@ std::vector<std::vector<double>> Matrix::generateNested() {
     return ret;
 }
 
-std::vector<std::vector<double>> Matrix::columns() {
-    std::vector<std::vector<double>> ret = {};
-    std::vector<std::vector<double>> nest = generateNested();
+std::vector<std::vector<double> > Matrix::columns() {
+    std::vector<std::vector<double> > ret = {};
+    std::vector<std::vector<double> > nest = generateNested();
 
     for (int i = 0; i < width; i++) {
         std::vector<double> temp = {};
@@ -186,12 +186,12 @@ Matrix Matrix::transpose() {
     return retMat;
 }
 
-Matrix Matrix::augment(ColumnVector v) {
+Matrix Matrix::augment(ColumnVector<double> v) {
     if(v.height != height) {
         throw std::invalid_argument( "Can only augment matrix and vector of the same height" );
     }
     std::vector<double> newMat = {};
-    std::vector<std::vector<double>> nest = generateNested();
+    std::vector<std::vector<double> > nest = generateNested();
     for(int i = 0; i < nest.size(); i++) {
         nest[i].push_back(v.vector[i]);
         newMat.insert(newMat.end(), nest[i].begin(), nest[i].end());
@@ -251,8 +251,8 @@ Matrix Matrix::forwardPhase() {
     if (width == 1) return ret;
 
     // Repeat for nested matrix
-    std::vector<std::vector<double>> nest = ret.generateNested();
-    std::vector<std::vector<double>> backup = nest;
+    std::vector<std::vector<double> > nest = ret.generateNested();
+    std::vector<std::vector<double> > backup = nest;
     nest.erase(nest.begin());
     for (auto & i : nest) {
         i.erase(i.begin(), i.begin() + pivot.second);
@@ -260,7 +260,7 @@ Matrix Matrix::forwardPhase() {
     Matrix b = Matrix(height - 1, width - pivot.second, flatten(nest));
     Matrix forwardB = b.forwardPhase();
 
-    std::vector<std::vector<double>> newNest = forwardB.generateNested();
+    std::vector<std::vector<double> > newNest = forwardB.generateNested();
 
     for (int i = 1; i < height; i++) {
         for (int j = 0; j < forwardB.width; j++) {
@@ -397,7 +397,7 @@ bool Matrix::isStrictlyLowerTriangular() {
 bool Matrix::isOrthogonal() {
     // return (*this) * transpose() == identity(width);
 
-    std::set<ColumnVector> cs;
+    std::set<ColumnVector<double> > cs;
     for(auto col : columns()) {
         cs.insert(ColumnVector(col));
     }
@@ -405,7 +405,7 @@ bool Matrix::isOrthogonal() {
 }
 
 bool Matrix::isOrthonormal() {
-    std::set<ColumnVector> cs;
+    std::set<ColumnVector<double> > cs;
     for(auto col : columns()) {
         cs.insert(ColumnVector(col));
     }

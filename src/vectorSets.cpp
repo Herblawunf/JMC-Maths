@@ -8,7 +8,8 @@
 
 using namespace std;
 
-bool orthogonal(std::set<ColumnVector> vecs) {
+template<class T>
+bool orthogonal(std::set<ColumnVector<T> > vecs) {
     for (auto vec : vecs) {
         for (auto vec2 : vecs) {
             if (vec == vec2) continue;
@@ -20,7 +21,8 @@ bool orthogonal(std::set<ColumnVector> vecs) {
     return true;
 }
 
-bool orthonormal(std::set<ColumnVector> vecs) {
+template<class T>
+bool orthonormal(std::set<ColumnVector<T> > vecs) {
     if (!orthogonal(vecs)) return false;
 
     for (auto i : vecs) {

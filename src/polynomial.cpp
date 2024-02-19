@@ -8,7 +8,7 @@
 #include <iostream>
 
 
-Polynomial::Polynomial(std::vector<std::pair<double, int>> cs) {
+Polynomial::Polynomial(std::vector<std::pair<double, int> > cs) {
     poly = {};
     int highestExponent = 0;
 
@@ -30,7 +30,7 @@ Polynomial::Polynomial(std::vector<std::pair<double, int>> cs) {
 }
 
 Polynomial Polynomial::differentiate() {
-    std::vector<std::pair<double, int>> newPoly;
+    std::vector<std::pair<double, int> > newPoly;
 
     for (auto pair : poly) {
         if (pair.second != 0) {

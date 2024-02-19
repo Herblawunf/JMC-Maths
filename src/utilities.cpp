@@ -5,7 +5,7 @@
 #include "../include/utilities.h"
 #include "../include/operations.h"
 
-ColumnVector e(int e, int r) {
+ColumnVector<double> e(int e, int r) {
     if (e < 1 || e > r) {
         throw std::invalid_argument( "Standard basis out of bounds" );
     }
@@ -16,7 +16,7 @@ ColumnVector e(int e, int r) {
     return {r, v};
 }
 
-double distance(ColumnVector u, ColumnVector v) {
+double distance(ColumnVector<double> u, ColumnVector<double> v) {
     return (u + (-1.0) * v).length();
 }
 
@@ -52,7 +52,7 @@ std::string joinWith(std::vector<std::string> v, std::string j) {
     return ret;
 }
 
-std::vector<double> flatten(std::vector<std::vector<double>> v) {
+std::vector<double> flatten(std::vector<std::vector<double> > v) {
     std::vector<double> ret = {};
 
     for (auto vec : v) {
@@ -78,7 +78,7 @@ std::vector<double> concat(std::vector<double> v1, std::vector<double> v2) {
     return r;
 }
 
-double findAllCoefficients(int x, std::vector<std::pair<double, int>> pairs) {
+double findAllCoefficients(int x, std::vector<std::pair<double, int> > pairs) {
     double sum = 0;
 
     for (auto pair : pairs) {

@@ -6,7 +6,7 @@
 #define LA_MATRIX_H
 #include "columnVector.h"
 
-class ColumnVector;
+template<class T> class ColumnVector;
 
 class Matrix {
 public:
@@ -21,9 +21,9 @@ public:
 
     double determinant();
 
-    std::vector<std::vector<double>> generateNested();
+    std::vector<std::vector<double> > generateNested();
 
-    std::vector<std::vector<double>> columns();
+    std::vector<std::vector<double> > columns();
 
     Matrix operator+(Matrix const& obj);
 
@@ -45,7 +45,7 @@ public:
 
     std::pair<int, double> leadingEntry(int row);
 
-    Matrix augment(ColumnVector v);
+    Matrix augment(ColumnVector<double> v);
 
     bool isZero();
 

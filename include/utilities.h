@@ -10,9 +10,9 @@
 #include <set>
 #include <iostream>
 
-ColumnVector e(int e, int r);
+ColumnVector<double> e(int e, int r);
 
-double distance(ColumnVector u, ColumnVector v);
+double distance(ColumnVector<double> u, ColumnVector<double> v);
 
 Matrix identity(int n);
 
@@ -20,13 +20,13 @@ std::string joinWith(std::vector<double> v, std::string j);
 
 std::string joinWith(std::vector<std::string> v, std::string j);
 
-std::vector<double> flatten(std::vector<std::vector<double>> v);
+std::vector<double> flatten(std::vector<std::vector<double> > v);
 
 bool all(std::vector<double> v, bool (*func) (double));
 
 std::vector<double> concat(std::vector<double> v1, std::vector<double> v2);
 
-double findAllCoefficients(int x, std::vector<std::pair<double, int>> pairs);
+double findAllCoefficients(int x, std::vector<std::pair<double, int> > pairs);
 
 template <typename T> void print(std::vector<T> vec) {
     std::cout << "[ ";

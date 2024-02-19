@@ -9,10 +9,10 @@
 class Polynomial {
 private:
     // Polynomial is represented by a vector of (coefficient, exponent) pairs
-    std::vector<std::pair<double, int>> poly;
+    std::vector<std::pair<double, int> > poly;
 
 public:
-    Polynomial(std::vector<std::pair<double, int>> cs);
+    Polynomial(std::vector<std::pair<double, int> > cs);
 
     Polynomial differentiate();
 

@@ -32,7 +32,7 @@ Matrix LinearSystem::coefficientMatrix() {
     return {static_cast<int>(equations.size()), mN, retMat};
 }
 
-ColumnVector LinearSystem::results() {
+ColumnVector<double> LinearSystem::results() {
     std::vector<double> v = {};
 
     for (auto e : equations) {
@@ -50,8 +50,8 @@ std::vector<double> LinearSystem::solutions() {
     Matrix augmented = augmentedMatrix();
     Matrix rowReduced = augmented.rowReduce();
 
-    std::vector<std::vector<double>> nest = rowReduced.generateNested();
-    std::vector<std::vector<double>> cols = rowReduced.columns();
+    std::vector<std::vector<double> > nest = rowReduced.generateNested();
+    std::vector<std::vector<double> > cols = rowReduced.columns();
 
     bool zeroRows = all(nest.back(), [](double x) {return x == 0;}) ;
 

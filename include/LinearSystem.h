@@ -17,7 +17,7 @@ public:
 
     Matrix coefficientMatrix();
 
-    ColumnVector results();
+    ColumnVector<double> results();
 
     Matrix augmentedMatrix();
 

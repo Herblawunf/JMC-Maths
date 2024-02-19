@@ -9,34 +9,33 @@
 
 class Matrix;
 
+template<class T>
 class ColumnVector {
 public:
     int height;
-    std::vector<double> vector;
+    std::vector<T> vector;
 
-    ColumnVector(int h, std::vector<double> v);
-    ColumnVector(int h);
-    ColumnVector(std::vector<double> v);
+    ColumnVector<T>(int h, std::vector<T> v);
+    ColumnVector<T>(int h);
+    ColumnVector<T>(std::vector<T> v);
 
     Matrix toMatrix();
 
     std::string toString();
 
-    ColumnVector operator+(ColumnVector const& obj);
+    ColumnVector<T> operator+(ColumnVector<T> const& obj);
 
-    ColumnVector operator*(double lambda);
+    ColumnVector<T> operator*(T lambda);
 
-    bool operator==(ColumnVector const& obj);
+    bool operator==(ColumnVector<T> const& obj);
 
     double length();
 
     bool isUnit();
 
-    ColumnVector normalise();
+    ColumnVector<T> normalise();
 
-    double magnitude() const;
-
-    bool operator<(ColumnVector const &obj) const;
+    bool operator<(ColumnVector<T> const &obj) const;
 };
 
 #endif //LA_COLUMNVECTOR_H
