@@ -113,6 +113,22 @@ Polynomial Polynomial::operator+(const Polynomial &obj) {
     return {concat};
 }
 
+Polynomial Polynomial::operator*(const Polynomial &obj) {
+    std::vector<std::pair<double, int>> accumulator = {};
+
+    for (auto term : poly) {
+        std::vector<std::pair<double, int>> adder = {};
+
+        for (auto term2 : obj.poly) {
+            adder.push_back(std::pair(term.first * term2.first, term.second + term2.second));
+        }
+
+        accumulator.insert(accumulator.end(), adder.begin(), adder.end());
+    }
+
+    return {accumulator};
+}
+
 std::ostream& operator<<(std::ostream& os, const Polynomial& obj) {
     return os << obj.toString();
 }

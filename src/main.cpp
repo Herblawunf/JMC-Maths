@@ -19,7 +19,7 @@ int main() {
 
     ColumnVector<Polynomial> vp = {{p, p}};
 
-    (vp + vp).print();
+    (p * p).print();
 
     return 0;
 }
