@@ -15,8 +15,11 @@ int main() {
     ColumnVector<int> v = {{1, 1}};
     ColumnVector<string> v1 = {{"Hello", "there"}};
 
-    v.print();
-    v1.print();
+    Polynomial p = {{{0.1, 3}, {2, 2}}};
+
+    ColumnVector<Polynomial> vp = {{p, p}};
+
+    (vp + vp).print();
 
     return 0;
 }

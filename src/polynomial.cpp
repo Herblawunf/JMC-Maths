@@ -44,7 +44,7 @@ Polynomial Polynomial::differentiate() {
     return {newPoly};
 }
 
-void Polynomial::print() {
+std::string Polynomial::toString() const {
     std::string ret = "";
 
     for (auto pair : poly) {
@@ -57,7 +57,11 @@ void Polynomial::print() {
     ret.pop_back();
     ret.pop_back();
 
-    std::cout << ret << std::endl;
+    return ret;
+}
+
+void Polynomial::print() {
+    std::cout << this->toString() << std::endl;
 }
 
 int Polynomial::degree() {
@@ -102,3 +106,13 @@ std::vector<double> Polynomial::solve(double equals) {
     throw std::invalid_argument( "Order too high to solve" );
 }
 
+Polynomial Polynomial::operator+(const Polynomial &obj) {
+    std::vector<std::pair<double, int>> concat = this->poly;
+
+    concat.insert(concat.end(), obj.poly.begin(), obj.poly.end());
+    return {concat};
+}
+
+std::ostream& operator<<(std::ostream& os, const Polynomial& obj) {
+    return os << obj.toString();
+}

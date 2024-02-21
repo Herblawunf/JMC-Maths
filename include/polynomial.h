@@ -5,6 +5,7 @@
 #ifndef LA_POLYNOMIAL_H
 #define LA_POLYNOMIAL_H
 #include <vector>
+#include <string>
 
 class Polynomial {
 private:
@@ -16,11 +17,17 @@ public:
 
     Polynomial differentiate();
 
+    std::string toString() const;
+
     void print();
 
     int degree();
 
     std::vector<double> solve(double equals);
+
+    Polynomial operator+(Polynomial const& obj);
+
+    friend std::ostream& operator<<(std::ostream& os, const Polynomial& obj);
 };
 
 
