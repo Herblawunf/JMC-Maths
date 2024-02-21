@@ -58,7 +58,7 @@ std::vector<double> LinearSystem::solutions() {
     // No zero rows case
     if (!zeroRows) {
         // Only has one solution if the row reduced coefficient matrix == In
-        if (coefficientMatrix().rowReduce() == identity(coefficientMatrix().width)) {
+        if (coefficientMatrix().rowReduce() == identityMatrix(coefficientMatrix().width)) {
             return cols.back();
         } else return {NAN}; // Infinite solutions, needs extension for free variables
     } else {

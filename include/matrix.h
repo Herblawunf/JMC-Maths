@@ -4,7 +4,7 @@
 
 #ifndef LA_MATRIX_H
 #define LA_MATRIX_H
-#include "columnVector.h"
+#include <vector>
 
 template<class T> class ColumnVector;
 
@@ -56,6 +56,8 @@ public:
     Matrix rowReduce();
 
     bool operator==(Matrix const& obj);
+
+    bool operator!=(Matrix const& obj);
 
     bool isDiagonal();
 

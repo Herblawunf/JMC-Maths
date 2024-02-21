@@ -14,7 +14,7 @@ ColumnVector<double> e(int e, int r);
 
 double distance(ColumnVector<double> u, ColumnVector<double> v);
 
-Matrix identity(int n);
+Matrix identityMatrix(int n);
 
 std::string joinWith(std::vector<double> v, std::string j);
 

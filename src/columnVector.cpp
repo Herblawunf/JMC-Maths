@@ -2,8 +2,12 @@
 // Created by Dylan Beharall on 25/01/2024.
 //
 
+#ifndef COLUMNVECTOR_FUNCTIONS
+#define COLUMNVECTOR_FUNCTIONS
 #include "../include/columnVector.h"
 #include <string>
+#include <iostream>
+#include <sstream>
 
 template<class T>
 ColumnVector<T>::ColumnVector(int h, std::vector<T> v) {
@@ -35,10 +39,20 @@ Matrix ColumnVector<T>::toMatrix() {
 template<class T>
 std::string ColumnVector<T>::toString() {
     std::string ret = std::to_string(height) + "{ ";
-    for(auto v : vector) {
-        ret += std::to_string(v) + ", ";
+    for(int i = 0; i < vector.size(); i++) {
+        std::stringstream ss;
+        ss << vector[i];
+        ret += ss.str();
+        if (i != vector.size() - 1) {
+            ret += ", ";
+        }
     }
     return ret + '}';
+}
+
+template<class T>
+void ColumnVector<T>::print() {
+    std::cout << this->toString() << std::endl;
 }
 
 template<class T>
@@ -67,12 +81,17 @@ bool ColumnVector<T>::operator==(const ColumnVector<T> &obj) {
 }
 
 template<class T>
-double ColumnVector<T>::length() {
+bool ColumnVector<T>::operator!=(const ColumnVector<T> &obj) {
+    return vector != obj.vector;
+}
+
+template<class T>
+double ColumnVector<T>::length() const {
     if (!std::is_arithmetic_v<T>) {
         throw std::invalid_argument("Can only find length of vector of arithmetic type");
     }
 
-    return sqrt(dotP(*this, *this));
+    return sqrt(dotP<T>(*this, *this));
 }
 
 template<class T>
@@ -93,3 +112,5 @@ template<class T>
 bool ColumnVector<T>::operator<(ColumnVector<T> const &obj) const {
     return length() < obj.length();
 }
+
+#endif

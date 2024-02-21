@@ -20,7 +20,7 @@ double distance(ColumnVector<double> u, ColumnVector<double> v) {
     return (u + (-1.0) * v).length();
 }
 
-Matrix identity(int n){
+Matrix identityMatrix(int n){
     Matrix retMat = Matrix(n, n);
 
     for (int i = 1; i <= n; i++) {

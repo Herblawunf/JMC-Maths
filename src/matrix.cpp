@@ -309,6 +309,10 @@ bool Matrix::operator==(const Matrix &obj) {
     return true;
 }
 
+bool Matrix::operator!=(const Matrix &obj) {
+    return !(*this == obj);
+}
+
 bool Matrix::isDiagonal() {
     for (int i = 1; i <= height; i++) {
         for (int j = 1; j <= width; j++) {
@@ -330,8 +334,9 @@ Matrix Matrix::inverse() {
     }
 
     Matrix aug = {height, width, mat};
+    Matrix id = identityMatrix(height);
 
-    for (auto col : identity(height).columns()) {
+    for (auto col : id.columns()) {
         aug = aug.augment(ColumnVector(col));
     }
     // Step 2, row reduce the augmented matrix
@@ -399,9 +404,9 @@ bool Matrix::isOrthogonal() {
 
     std::set<ColumnVector<double> > cs;
     for(auto col : columns()) {
-        cs.insert(ColumnVector(col));
+        cs.insert(ColumnVector<double>(col));
     }
-    return orthogonal(cs);
+    return orthogonal<double>(cs);
 }
 
 bool Matrix::isOrthonormal() {
@@ -409,7 +414,7 @@ bool Matrix::isOrthonormal() {
     for(auto col : columns()) {
         cs.insert(ColumnVector(col));
     }
-    return orthonormal(cs);
+    return orthonormal<double>(cs);
 }
 
 bool Matrix::isSymmetric() {
@@ -417,6 +422,6 @@ bool Matrix::isSymmetric() {
 }
 
 bool Matrix::isEigenvalue(double lambda) {
-    Matrix m = *this + (- lambda) * identity(height);
+    Matrix m = *this + (- lambda) * identityMatrix(height);
     return !m.invertible();
 }

@@ -7,8 +7,6 @@
 #include <vector>
 #include "matrix.h"
 
-class Matrix;
-
 template<class T>
 class ColumnVector {
 public:
@@ -23,13 +21,17 @@ public:
 
     std::string toString();
 
+    void print();
+
     ColumnVector<T> operator+(ColumnVector<T> const& obj);
 
     ColumnVector<T> operator*(T lambda);
 
     bool operator==(ColumnVector<T> const& obj);
 
-    double length();
+    bool operator!=(ColumnVector<T> const& obj);
+
+    double length() const;
 
     bool isUnit();
 
@@ -37,5 +39,7 @@ public:
 
     bool operator<(ColumnVector<T> const &obj) const;
 };
+
+#include "../src/columnVector.cpp"
 
 #endif //LA_COLUMNVECTOR_H
