@@ -132,3 +132,7 @@ Polynomial Polynomial::operator*(const Polynomial &obj) {
 std::ostream& operator<<(std::ostream& os, const Polynomial& obj) {
     return os << obj.toString();
 }
+
+Polynomial Polynomial::operator-(const Polynomial &obj) {
+    return *this + (Polynomial({{-1, 0}}) * obj);
+}

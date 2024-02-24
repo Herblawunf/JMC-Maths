@@ -30,6 +30,8 @@ public:
     Polynomial operator*(Polynomial const& obj);
 
     friend std::ostream& operator<<(std::ostream& os, const Polynomial& obj);
+
+    Polynomial operator-(Polynomial const& obj);
 };
 
 

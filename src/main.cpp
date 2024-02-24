@@ -12,14 +12,15 @@
 using namespace std;
 
 int main() {
-    ColumnVector<int> v = {{1, 1}};
-    ColumnVector<string> v1 = {{"Hello", "there"}};
+    Polynomial p = {{{2, 1}}};
+    std::vector<Polynomial> v = {p, p, (p + p), p};
 
-    Polynomial p = {{{0.1, 3}, {2, 2}}};
+    Matrix<Polynomial> m = {2, 2, v};
 
-    ColumnVector<Polynomial> vp = {{p, p}};
+    vector<double> v1 = {2.0, 3.0, 1.5, 4};
+    Matrix<double> m1 = {2, 2, v1};
 
-    (p * p).print();
+    print(m1.eigenvalues());
 
     return 0;
 }

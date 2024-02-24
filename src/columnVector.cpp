@@ -32,8 +32,8 @@ ColumnVector<T>::ColumnVector(std::vector<T> v) {
 }
 
 template<class T>
-Matrix ColumnVector<T>::toMatrix() {
-    return Matrix(height, 1, vector);
+Matrix<T> ColumnVector<T>::toMatrix() {
+    return Matrix<T>(height, 1, vector);
 }
 
 template<class T>

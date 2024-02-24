@@ -5,65 +5,67 @@
 #ifndef LA_MATRIX_H
 #define LA_MATRIX_H
 #include <vector>
+#include "polynomial.h"
 
 template<class T> class ColumnVector;
 
+template<class T>
 class Matrix {
 public:
     int height;
     int width;
-    std::vector<double> mat;
+    std::vector<T> mat;
 
-    Matrix(int h, int w, std::vector<double> m);
+    Matrix(int h, int w, std::vector<T> m);
     Matrix(int h, int w);
 
     std::string toString();
 
-    double determinant();
+    T determinant();
 
-    std::vector<std::vector<double> > generateNested();
+    std::vector<std::vector<T> > generateNested();
 
-    std::vector<std::vector<double> > columns();
+    std::vector<std::vector<T> > columns();
 
-    Matrix operator+(Matrix const& obj);
+    Matrix<T> operator+(Matrix<T> const& obj);
 
-    Matrix operator*(double lambda);
+    Matrix<T> operator*(T lambda);
 
-    Matrix r(int i, int j);
+    Matrix<T> r(int i, int j);
 
-    Matrix r(int i, double lambda);
+    Matrix<T> r(int i, T lambda);
 
-    Matrix r(int i, int j, double lambda);
+    Matrix<T> r(int i, int j, T lambda);
 
-    double element(int i, int j);
+    T element(int i, int j);
 
-    void insert(double e, int i, int j);
+    void insert(T e, int i, int j);
 
     void print();
 
-    Matrix transpose();
+    Matrix<T> transpose();
 
-    std::pair<int, double> leadingEntry(int row);
+    std::pair<int, T> leadingEntry(int row);
 
-    Matrix augment(ColumnVector<double> v);
+    Matrix<T> augment(ColumnVector<T> v);
 
     bool isZero();
 
-    Matrix forwardPhase();
+    Matrix<double> forwardPhase();
 
-    Matrix backwardPhase();
+    Matrix<double> backwardPhase();
 
-    Matrix rowReduce();
+    Matrix<double> rowReduce();
 
-    bool operator==(Matrix const& obj);
+    bool operator==(Matrix<T> const& obj);
 
-    bool operator!=(Matrix const& obj);
+    bool operator!=(Matrix<T> const& obj);
 
     bool isDiagonal();
 
     bool invertible();
 
-    Matrix inverse();
+    Matrix<double> inverse();
 
     // Shaowy05: Is Square
     bool isSquare();
@@ -86,7 +88,11 @@ public:
     bool isSymmetric();
 
     bool isEigenvalue(double lambda);
+
+    std::vector<double> eigenvalues();
 };
 
+
+#include "../src/matrix.cpp"
 
 #endif //LA_MATRIX_H

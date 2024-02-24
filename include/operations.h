@@ -7,21 +7,45 @@
 #include "matrix.h"
 #include "columnVector.h"
 
-Matrix operator*(Matrix mat1, Matrix mat2);
+template<class T>
+Matrix<T> operator*(Matrix<T> mat1, Matrix<T> mat2) {
+    if (mat1.width != mat2.height) {
+        throw std::invalid_argument( "Wrong dimensions for matrix multiplication" );
+    }
 
-Matrix operator*(Matrix mat, ColumnVector<double> v);
+    std::vector<std::vector<T> > n1 = mat1.generateNested();
+    std::vector<std::vector<T> > n2 = mat2.generateNested();
+    std::vector<T> ret = {};
 
-Matrix operator*(ColumnVector<double> v, Matrix mat);
+    for (int i = 0; i < mat1.height; i++) {
+        for (int j = 0; j < mat2.width; j++) {
+            double add = mat1.addIdentity;
 
-Matrix operator*(double lambda, Matrix m);
+            for (int k = 0; k < mat1.width; k++) {
+                add += n1[i][k] * n2[k][j];
+            }
 
-//template<class T>
-//inline double dotP(ColumnVector<T> c1, ColumnVector<T> c2);
-//
-//template<class T>
-//ColumnVector<T> operator*(T lambda, ColumnVector<T> c);
-//
-//#include "../src/operations.cpp"
+            ret.push_back(add);
+        }
+    }
+
+    return {mat1.height, mat2.width, ret};
+}
+
+template<class T>
+Matrix<T> operator*(Matrix<T> mat, ColumnVector<T> v) {
+    return mat * v.toMatrix();
+}
+
+template<class T>
+Matrix<T> operator*(ColumnVector<T> v, Matrix<T> mat) {
+    return v.toMatrix() * mat;
+}
+
+template<class T>
+Matrix<T> operator*(T lambda, Matrix<T> m) {
+    return m * lambda;
+}
 
 template<class T>
 inline double dotP(ColumnVector<T> c1, ColumnVector<T> c2) {

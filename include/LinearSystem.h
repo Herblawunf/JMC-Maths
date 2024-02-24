@@ -15,11 +15,11 @@ public:
 
     LinearSystem(std::vector<LinearEquation> es);
 
-    Matrix coefficientMatrix();
+    Matrix<double> coefficientMatrix();
 
     ColumnVector<double> results();
 
-    Matrix augmentedMatrix();
+    Matrix<double> augmentedMatrix();
 
     std::vector<double> solutions();
 

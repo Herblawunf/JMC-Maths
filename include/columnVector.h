@@ -5,7 +5,8 @@
 #ifndef LA_COLUMNVECTOR_H
 #define LA_COLUMNVECTOR_H
 #include <vector>
-#include "matrix.h"
+
+template<class T> class Matrix;
 
 template<class T>
 class ColumnVector {
@@ -17,7 +18,7 @@ public:
     ColumnVector<T>(int h);
     ColumnVector<T>(std::vector<T> v);
 
-    Matrix toMatrix();
+    Matrix<T> toMatrix();
 
     std::string toString();
 

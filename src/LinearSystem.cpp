@@ -3,7 +3,6 @@
 //
 
 #include "../include/LinearSystem.h"
-#include "../include/utilities.h"
 #include <iostream>
 
 LinearSystem::LinearSystem(std::vector<LinearEquation> es) {
@@ -20,7 +19,7 @@ LinearSystem::LinearSystem(std::vector<LinearEquation> es) {
     }
 }
 
-Matrix LinearSystem::coefficientMatrix() {
+Matrix<double> LinearSystem::coefficientMatrix() {
     std::vector<double> retMat = {};
     int mN = 0;
 
@@ -42,7 +41,7 @@ ColumnVector<double> LinearSystem::results() {
     return {v};
 }
 
-Matrix LinearSystem::augmentedMatrix() {
+Matrix<double> LinearSystem::augmentedMatrix() {
     return coefficientMatrix().augment(results());
 }
 
@@ -53,7 +52,14 @@ std::vector<double> LinearSystem::solutions() {
     std::vector<std::vector<double> > nest = rowReduced.generateNested();
     std::vector<std::vector<double> > cols = rowReduced.columns();
 
-    bool zeroRows = all(nest.back(), [](double x) {return x == 0;}) ;
+    // bool zeroRows = all(nest.back(), [](double x) {return x == 0;}) ;
+    bool zeroRows = true;
+    for (auto e : nest.back()) {
+        if (e != 0) {
+            zeroRows = false;
+            break;
+        }
+    }
 
     // No zero rows case
     if (!zeroRows) {

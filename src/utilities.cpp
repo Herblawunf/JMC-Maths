@@ -3,7 +3,7 @@
 //
 
 #include "../include/utilities.h"
-#include "../include/operations.h"
+#include "../include/matrix.h"
 
 ColumnVector<double> e(int e, int r) {
     if (e < 1 || e > r) {
@@ -20,8 +20,8 @@ double distance(ColumnVector<double> u, ColumnVector<double> v) {
     return (u + (-1.0) * v).length();
 }
 
-Matrix identityMatrix(int n){
-    Matrix retMat = Matrix(n, n);
+Matrix<double> identityMatrix(int n){
+    Matrix<double> retMat = Matrix<double>(n, n, std::vector<double>(n * n));
 
     for (int i = 1; i <= n; i++) {
         retMat.insert(1, i, i);
@@ -52,32 +52,6 @@ std::string joinWith(std::vector<std::string> v, std::string j) {
     return ret;
 }
 
-std::vector<double> flatten(std::vector<std::vector<double> > v) {
-    std::vector<double> ret = {};
-
-    for (auto vec : v) {
-        ret.insert(ret.end(), vec.begin(), vec.end());
-    }
-
-    return ret;
-}
-
-bool all(std::vector<double> v, bool (*func) (double)) {
-    if (v.size() == 0) return true;
-    double last = v[v.size() - 1];
-    v.pop_back();
-    return func(last) && all(v, func);
-}
-
-std::vector<double> concat(std::vector<double> v1, std::vector<double> v2) {
-    std::vector<double> r = {};
-    for (auto v : v1) r.push_back(v);
-
-    for (auto v : v2) r.push_back(v);
-
-    return r;
-}
-
 double findAllCoefficients(int x, std::vector<std::pair<double, int> > pairs) {
     double sum = 0;
 
@@ -87,3 +61,4 @@ double findAllCoefficients(int x, std::vector<std::pair<double, int> > pairs) {
 
     return sum;
 };
+

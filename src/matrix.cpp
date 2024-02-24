@@ -2,6 +2,9 @@
 // Created by Dylan Beharall on 17/01/2024.
 //
 
+#ifndef MATRIX_FUNCTIONS
+#define MATRIX_FUNCTIONS
+
 #include "../include/matrix.h"
 #include "../include/utilities.h"
 #include "../include/operations.h"
@@ -9,8 +12,22 @@
 #include <iostream>
 #include <utility>
 #include <vector>
+#include <sstream>
 
-Matrix::Matrix(int h, int w, std::vector<double> m) {
+template<class T>
+Matrix<Polynomial> matrixToPolynomial(Matrix<T> m) {
+    if (!isArithmetic<T>()) {
+        throw std::invalid_argument("Only matrices of arithmetic types can be converted to polynomial");
+    }
+    std::vector<Polynomial> poly;
+    for (auto e : m.mat) {
+        poly.push_back(toPolynomial(e));
+    }
+    return {m.height, m.width, poly};
+}
+
+template<class T>
+Matrix<T>::Matrix(int h, int w, std::vector<T> m) {
     height = h;
     width = w;
     mat = std::move(m);
@@ -21,18 +38,22 @@ Matrix::Matrix(int h, int w, std::vector<double> m) {
     }
 }
 
-Matrix::Matrix(int h, int w) {
+template<class T>
+Matrix<T>::Matrix(int h, int w) {
     height = h;
     width = w;
-    mat = std::vector<double>(h * w);
+    mat = std::vector<T>(h * w);
 }
 
-std::string Matrix::toString() {
+template<class T>
+std::string Matrix<T>::toString() {
     std::string ret;
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            ret += std::to_string(mat[i * width + j]) + " ";
+            std::stringstream ss;
+            ss << mat[i * width + j];
+            ret += ss.str() + " ";
         }
         ret += "\n";
     }
@@ -40,35 +61,43 @@ std::string Matrix::toString() {
     return ret;
 }
 
-double Matrix::determinant() {
+template<class T>
+T Matrix<T>::determinant() {
     if (height != width) {
-        return NAN;
-    } else if (height == 0) return 1.0;
+        throw std::invalid_argument ("Determinant can only be calculated of square matrix");
+    } else if (height == 1) return mat[0];
 
-    std::vector<std::vector<double> > nested = generateNested();
-    std::vector<double> first = nested[0];
+    std::vector<std::vector<T> > nested = generateNested();
+    std::vector<T> first = nested[0];
     nested.erase(nested.begin());
-    double det = 0.0;
+    T det = additiveIdentity<T>();
 
     for (int i = 0; i < first.size(); i++) {
-        std::vector<double> m = {};
+        std::vector<T> m = {};
         for (auto v : nested) {
             v.erase(v.begin() + i);
             m.insert(m.end(), v.begin(), v.end());
         }
 
-        Matrix inside = Matrix(height - 1, width - 1, m);
-        det += pow(-1, i) * first[i] * inside.determinant();
+        Matrix<T> inside = Matrix<T>(height - 1, width - 1, m);
+
+        if (i % 2 == 1) {
+            det = det - first[i] * inside.determinant();
+        } else {
+            det = det + first[i] * inside.determinant();
+        }
+
     }
 
     return det;
 }
 
-std::vector<std::vector<double> > Matrix::generateNested() {
-    std::vector<std::vector<double> > ret = {};
+template<class T>
+std::vector<std::vector<T> > Matrix<T>::generateNested() {
+    std::vector<std::vector<T> > ret = {};
 
     for (int i = 0; i < height; i++) {
-        std::vector<double> temp = {};
+        std::vector<T> temp = {};
         for (int j = 0; j < width; j++) {
             temp.push_back(mat[i*width + j]);
         }
@@ -78,12 +107,13 @@ std::vector<std::vector<double> > Matrix::generateNested() {
     return ret;
 }
 
-std::vector<std::vector<double> > Matrix::columns() {
-    std::vector<std::vector<double> > ret = {};
-    std::vector<std::vector<double> > nest = generateNested();
+template<class T>
+std::vector<std::vector<T> > Matrix<T>::columns() {
+    std::vector<std::vector<T> > ret = {};
+    std::vector<std::vector<T> > nest = generateNested();
 
     for (int i = 0; i < width; i++) {
-        std::vector<double> temp = {};
+        std::vector<T> temp = {};
         for (int j = 0; j < height; j++) {
             temp.push_back(nest[j][i]);
         }
@@ -93,31 +123,34 @@ std::vector<std::vector<double> > Matrix::columns() {
     return ret;
 }
 
-Matrix Matrix::operator+(const Matrix &obj) {
+template<class T>
+Matrix<T> Matrix<T>::operator+(const Matrix<T> &obj) {
     if (height != obj.height || width != obj.width) {
         throw std::invalid_argument( "Matrices must be the same dimensions to add" );
     }
-    std::vector<double> result = obj.mat;
+    std::vector<T> result = obj.mat;
 
     for (int i = 0; i < result.size(); i++) {
-        result[i] += mat[i];
+        result[i] = result[i] + mat[i];
     }
 
     return {height, width, result};
 }
 
-Matrix Matrix::operator*(double lambda) {
-    std::vector<double> newMat = mat;
-    for (int i = 0; i < height * width; i++) newMat[i] *= lambda;
+template<class T>
+Matrix<T> Matrix<T>::operator*(T lambda) {
+    std::vector<T> newMat = mat;
+    for (int i = 0; i < height * width; i++) newMat[i] = newMat[i] * lambda;
     return {height, width, newMat};
 }
 
-Matrix Matrix::r(int i, int j) {
+template<class T>
+Matrix<T> Matrix<T>::r(int i, int j) {
     if (i < 1 || j < 1 || i > height || j > height) {
         throw std::invalid_argument
                 ( "Rows out of bounds for matrix " + std::to_string(i) + " " + std::to_string(j));
     }
-    std::vector<double> newMat = mat;
+    std::vector<T> newMat = mat;
 
     for (int k = 0; k < width; k++) {
         newMat[(i - 1) * width + k] = mat[(j - 1) * width + k];
@@ -126,31 +159,34 @@ Matrix Matrix::r(int i, int j) {
     return {height, width, newMat};
 }
 
-Matrix Matrix::r(int i, double lambda) {
+template<class T>
+Matrix<T> Matrix<T>::r(int i, T lambda) {
     if (i < 1 || i > height) throw std::invalid_argument
     ( "Row out of bounds for matrix " + std::to_string(i));
 
-    std::vector<double> newMat = mat;
+    std::vector<T> newMat = mat;
     for (int k = 0; k < width; k++) {
         newMat[(i - 1) * width + k] *= lambda;
     }
     return {height, width, newMat};
 }
 
-Matrix Matrix::r(int i, int j, double lambda) {
+template<class T>
+Matrix<T> Matrix<T>::r(int i, int j, T lambda) {
     if (i < 1 || j < 1 || i > height || j > height) {
         throw std::invalid_argument
         ( "Rows out of bounds for matrix " + std::to_string(i) + " " + std::to_string(j));
     }
-    std::vector<double> newMat = mat;
+    std::vector<T> newMat = mat;
 
     for (int k = 0; k < width; k++) {
-        newMat[(j - 1) * width + k] += mat[(i - 1) * width + k] * lambda;
+        newMat[(j - 1) * width + k] = newMat[(j - 1) * width + k] + mat[(i - 1) * width + k] * lambda;
     }
     return {height, width, newMat};
 }
 
-double Matrix::element(int i, int j) {
+template<class T>
+T Matrix<T>::element(int i, int j) {
     int ind = (i - 1) * width + j - 1;
 
     if (i < 1 || j < 1 || ind >= height * width) {
@@ -160,7 +196,8 @@ double Matrix::element(int i, int j) {
     return mat[ind];
 }
 
-void Matrix::insert(double e, int i, int j) {
+template<class T>
+void Matrix<T>::insert(T e, int i, int j) {
     int ind = (i - 1) * width + j - 1;
 
     if (i < 1 || j < 1 || ind >= height * width) {
@@ -170,12 +207,14 @@ void Matrix::insert(double e, int i, int j) {
     mat[ind] = e;
 }
 
-void Matrix::print() {
+template<class T>
+void Matrix<T>::print() {
     std::cout << toString() << std::endl;
 }
 
-Matrix Matrix::transpose() {
-    Matrix retMat = Matrix(width, height);
+template<class T>
+Matrix<T> Matrix<T>::transpose() {
+    Matrix<T> retMat = Matrix<T>(width, height, mat);
 
     for(int i = 1; i <= height; i++) {
         for (int j = 1; j <= width; j++) {
@@ -186,12 +225,13 @@ Matrix Matrix::transpose() {
     return retMat;
 }
 
-Matrix Matrix::augment(ColumnVector<double> v) {
+template<class T>
+Matrix<T> Matrix<T>::augment(ColumnVector<T> v) {
     if(v.height != height) {
         throw std::invalid_argument( "Can only augment matrix and vector of the same height" );
     }
-    std::vector<double> newMat = {};
-    std::vector<std::vector<double> > nest = generateNested();
+    std::vector<T> newMat = {};
+    std::vector<std::vector<T> > nest = generateNested();
     for(int i = 0; i < nest.size(); i++) {
         nest[i].push_back(v.vector[i]);
         newMat.insert(newMat.end(), nest[i].begin(), nest[i].end());
@@ -199,27 +239,34 @@ Matrix Matrix::augment(ColumnVector<double> v) {
     return {height, width + 1, newMat};
 }
 
-bool Matrix::isZero() {
-    return all(mat, [](double x) {return x == 0;});
+template<class T>
+bool Matrix<T>::isZero() {
+    for (auto element : mat) {
+        if (element != additiveIdentity<T>()) return false;
+    }
+    return true;
 }
 
-std::pair<int, double> Matrix::leadingEntry(int row) {
-    std::vector<double> rw = generateNested()[row - 1];
+template<class T>
+std::pair<int, T> Matrix<T>::leadingEntry(int row) {
+    std::vector<T> rw = generateNested()[row - 1];
 
     for (int i = 0; i < rw.size(); i++) {
-        if (rw[i] != 0) return {i + 1, rw[i]};
+        if (rw[i] != additiveIdentity<T>()) return {i + 1, rw[i]};
     }
-    return {0, 0};
+
+    return {0, additiveIdentity<T>()};
 }
 
-Matrix Matrix::forwardPhase() {
-    Matrix ret = Matrix(height, width, mat);
+template<class T>
+Matrix<double> Matrix<T>::forwardPhase() {
+    Matrix<double> ret = Matrix<double>(height, width, mat);
 
     // Base case
     if (isZero()) return ret;
 
     if (height == 1) {
-        std::pair<int, double> p = leadingEntry(1);
+        std::pair<int, T> p = leadingEntry(1);
         ret = ret.r(1, 1/p.second);
         return ret;
     }
@@ -273,17 +320,18 @@ Matrix Matrix::forwardPhase() {
     return {height, width, flatten(backup)};
 }
 
-Matrix Matrix::backwardPhase() {
+template<class T>
+Matrix<double> Matrix<T>::backwardPhase() {
     // Requires Matrix to already be in echelon form via forward phase
-    Matrix ret = Matrix(height, width, mat);
+    Matrix<double> ret = Matrix<double>(height, width, mat);
 
     for(int i = 1; i <= height; i++) {
-        std::pair<int, double> p = ret.leadingEntry(i);
+        std::pair<int, T> p = ret.leadingEntry(i);
         if(p.first == 0) return ret;
         int column = p.first;
 
         for(int j = 1; j < i; j++) {
-            double ele = ret.element(j, column);
+            T ele = ret.element(j, column);
 
             ret = ret.r(i, j, -ele);
         }
@@ -291,13 +339,19 @@ Matrix Matrix::backwardPhase() {
     return ret;
 }
 
-Matrix Matrix::rowReduce() {
-    Matrix ret = Matrix(height, width, mat);
+template<class T>
+Matrix<double> Matrix<T>::rowReduce() {
+    if(!isArithmetic<T>()) {
+        throw std::invalid_argument( "Can only row reduce a matrix of arithmetic type" );
+    }
+
+    Matrix<T> ret = Matrix<T>(height, width, mat);
 
     return ret.forwardPhase().backwardPhase();
 }
 
-bool Matrix::operator==(const Matrix &obj) {
+template<class T>
+bool Matrix<T>::operator==(const Matrix<T> &obj) {
     bool checker = true;
     if(height != obj.height || width != obj.width) {
         return false;
@@ -309,78 +363,89 @@ bool Matrix::operator==(const Matrix &obj) {
     return true;
 }
 
-bool Matrix::operator!=(const Matrix &obj) {
+template<class T>
+bool Matrix<T>::operator!=(const Matrix<T> &obj) {
     return !(*this == obj);
 }
 
-bool Matrix::isDiagonal() {
+template<class T>
+bool Matrix<T>::isDiagonal() {
     for (int i = 1; i <= height; i++) {
         for (int j = 1; j <= width; j++) {
-            if (i != j && element(i, j) != 0) return false;
+            if (i != j && element(i, j) != additiveIdentity<T>()) return false;
         }
     }
 
     return true;
 }
 
-bool Matrix::invertible() {
-    return determinant() != 0 && determinant() != NAN;
+template<class T>
+bool Matrix<T>::invertible() {
+    return height == width && determinant() != additiveIdentity<T>();
 }
 
-Matrix Matrix::inverse() {
+template<class T>
+Matrix<double> Matrix<T>::inverse() {
+    if (!isArithmetic<T>()) {
+        throw std::invalid_argument("Can only calculate inverse of matrix of arithmetic type");
+    }
+
     // First, compute the augmented matrix A | In
     if (!invertible()) {
         throw std::invalid_argument( "Matrix not invertible" );
     }
 
-    Matrix aug = {height, width, mat};
-    Matrix id = identityMatrix(height);
+    Matrix<double> aug = {height, width, mat};
+    Matrix<double> id = identityMatrix(height);
 
     for (auto col : id.columns()) {
-        aug = aug.augment(ColumnVector(col));
+        aug = aug.augment(ColumnVector<double>(col));
     }
     // Step 2, row reduce the augmented matrix
-    Matrix rowReduced = aug.rowReduce();
+    Matrix<double> rowReduced = aug.rowReduce();
 
     // Step 3, obtain the final n columns as A-1
-    Matrix inv = {height, 0, {}};
+    Matrix<double> inv = {height, 0, {}};
 
     for(int i = width; i < 2 * width; i++) {
-        inv = inv.augment(ColumnVector(rowReduced.columns()[i]));
+        inv = inv.augment(ColumnVector<double>(rowReduced.columns()[i]));
     }
 
     return inv;
 }
 
 // Freddie05: Implemented isSquare function
-bool Matrix::isSquare() {
+template<class T>
+bool Matrix<T>::isSquare() {
     return height == width;
 }
 
 // Shaowy05: Implementing upper and lower triangular functions
-bool Matrix::isUpperTriangular() {
-    if (!isSquare()) return NAN;
+template<class T>
+bool Matrix<T>::isUpperTriangular() {
+    if (!isSquare()) return false;
 
     bool isUpperTriangular = true;
 
     for (int i = 2; i <= height; i++) {
         for (int j = 1; j <= i - 1; j++) {
-            if (element(i, j) != 0) isUpperTriangular = false;
+            if (element(i, j) != additiveIdentity<T>()) isUpperTriangular = false;
         }
     }
 
     return isUpperTriangular;
 }
 
-bool Matrix::isStrictlyUpperTriangular() {
+template<class T>
+bool Matrix<T>::isStrictlyUpperTriangular() {
 
-    if (!isSquare()) return NAN;
+    if (!isSquare()) return false;
 
     bool isUpperTriangular = true;
 
     for (int i = 1; i <= height; i++) {
         for (int j = 1; j <= i; j++) {
-            if (element(i, j) != 0) isUpperTriangular = false;
+            if (element(i, j) != additiveIdentity<T>()) isUpperTriangular = false;
         }
     }
 
@@ -389,39 +454,70 @@ bool Matrix::isStrictlyUpperTriangular() {
 }
 
 // Using the transpose() method to define Lower Triangular methods
-bool Matrix::isLowerTriangular() {
-    Matrix t = this->transpose();
+template<class T>
+bool Matrix<T>::isLowerTriangular() {
+    Matrix<T> t = this->transpose();
     return t.isUpperTriangular();
 }
 
-bool Matrix::isStrictlyLowerTriangular() {
-    Matrix t = this->transpose();
+template<class T>
+bool Matrix<T>::isStrictlyLowerTriangular() {
+    Matrix<T> t = this->transpose();
     return t.isStrictlyUpperTriangular();
 }
 
-bool Matrix::isOrthogonal() {
+template<class T>
+bool Matrix<T>::isOrthogonal() {
     // return (*this) * transpose() == identity(width);
 
-    std::set<ColumnVector<double> > cs;
+    std::set<ColumnVector<T> > cs;
     for(auto col : columns()) {
-        cs.insert(ColumnVector<double>(col));
+        cs.insert(ColumnVector<T>(col));
     }
-    return orthogonal<double>(cs);
+    return orthogonal<T>(cs);
 }
 
-bool Matrix::isOrthonormal() {
-    std::set<ColumnVector<double> > cs;
+template<class T>
+bool Matrix<T>::isOrthonormal() {
+    std::set<ColumnVector<T> > cs;
     for(auto col : columns()) {
-        cs.insert(ColumnVector(col));
+        cs.insert(ColumnVector<T>(col));
     }
-    return orthonormal<double>(cs);
+    return orthonormal<T>(cs);
 }
 
-bool Matrix::isSymmetric() {
+template<class T>
+bool Matrix<T>::isSymmetric() {
     return (*this) == transpose();
 }
 
-bool Matrix::isEigenvalue(double lambda) {
-    Matrix m = *this + (- lambda) * identityMatrix(height);
+template<class T>
+bool Matrix<T>::isEigenvalue(double lambda) {
+    if (!isArithmetic<T>()) {
+        throw std::invalid_argument("Can only check for eigenvalue if of arithmetic type");
+    }
+
+    Matrix<double> m = *this + (- lambda) * identityMatrix(height);
     return !m.invertible();
 }
+
+template<class T>
+std::vector<double> Matrix<T>::eigenvalues() {
+    if (!isSquare()) {
+        throw std::invalid_argument("Only square matrices have eigenvalues");
+    }
+    if (!isArithmetic<T>()) {
+        throw std::invalid_argument("Eigenvalues can only be calculated for matrix of arithmetic type");
+    }
+    Matrix<Polynomial> asPoly = matrixToPolynomial(*this);
+    Matrix<Polynomial> id = matrixToPolynomial(identityMatrix(height));
+    id = Polynomial({{-1, 1}}) * id;
+
+    asPoly = asPoly + id;
+
+    Polynomial characteristicPolynomial = asPoly.determinant();
+
+    return characteristicPolynomial.solve(0);
+}
+
+#endif
