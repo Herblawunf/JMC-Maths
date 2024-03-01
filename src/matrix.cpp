@@ -13,6 +13,7 @@
 #include <utility>
 #include <vector>
 #include <sstream>
+#include <complex>
 
 template<class T>
 Matrix<Polynomial> matrixToPolynomial(Matrix<T> m) {
@@ -502,7 +503,7 @@ bool Matrix<T>::isEigenvalue(double lambda) {
 }
 
 template<class T>
-std::vector<double> Matrix<T>::eigenvalues() {
+std::vector<std::complex<double>> Matrix<T>::eigenvalues() {
     if (!isSquare()) {
         throw std::invalid_argument("Only square matrices have eigenvalues");
     }
@@ -516,6 +517,8 @@ std::vector<double> Matrix<T>::eigenvalues() {
     asPoly = asPoly + id;
 
     Polynomial characteristicPolynomial = asPoly.determinant();
+
+    characteristicPolynomial.print();
 
     return characteristicPolynomial.solve(0);
 }

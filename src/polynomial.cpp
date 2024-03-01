@@ -6,6 +6,7 @@
 #include "../include/utilities.h"
 #include <string>
 #include <iostream>
+#include <complex>
 
 
 Polynomial::Polynomial(std::vector<std::pair<double, int> > cs) {
@@ -69,7 +70,7 @@ int Polynomial::degree() {
     return poly.back().second;
 }
 
-std::vector<double> Polynomial::solve(double equals) {
+std::vector<std::complex<double>> Polynomial::solve(double equals) {
     if (degree() == 0) {
         return {};
     } else if (degree() == 1) {
@@ -94,13 +95,24 @@ std::vector<double> Polynomial::solve(double equals) {
         double c = findAllCoefficients(1, poly);
         double d = findAllCoefficients(0, poly) - equals;
 
-        double d0 = pow(b, 2) - 4*a*c;
+        double d0 = pow(b, 2) - 3*a*c;
         double d1 = 2*pow(b, 3) - 9*a*b*c + 27*pow(a, 2)*d;
 
         double bigC = pow(((d1 + pow((pow(d1, 2) - 4*pow(d0, 3)), 0.5)) / 2.0), 1.0/3.0);
 
+        bigC = bigC == 0 ? pow(((d1 - pow((pow(d1, 2) - 4*pow(d0, 3)), 0.5)) / 2.0), 1.0/3.0) : bigC;
+
         // First root
-        double x0 = bigC == 0 ? - b / (3 * a) : (b + bigC + d0 / bigC) / (-3 * a);
+        // double x0 = bigC == 0 ? - b / (3 * a) : (b + bigC + d0 / bigC) / (-3 * a);
+
+        std::complex<double> epsilon = {-0.5, sqrt(3.0) / 2.0};
+
+        std::complex<double> x0 = (-1 / (3*a)) * (b + bigC + d0 / bigC);
+        std::complex<double> x1 = (-1 / (3*a)) * (b + epsilon * bigC + d0 / (epsilon * bigC));
+        std::complex<double> x2 = (-1 / (3*a)) * (b + epsilon * epsilon * bigC + d0 / (epsilon * epsilon * bigC));
+
+        return {x0, x1, x2};
+
         throw std::invalid_argument( "Order too high to solve" );
     }
     throw std::invalid_argument( "Order too high to solve" );

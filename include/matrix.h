@@ -6,6 +6,7 @@
 #define LA_MATRIX_H
 #include <vector>
 #include "polynomial.h"
+#include <complex>
 
 template<class T> class ColumnVector;
 
@@ -89,7 +90,7 @@ public:
 
     bool isEigenvalue(double lambda);
 
-    std::vector<double> eigenvalues();
+    std::vector<std::complex<double>> eigenvalues();
 };
 
 

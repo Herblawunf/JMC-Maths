@@ -6,6 +6,7 @@
 #define LA_POLYNOMIAL_H
 #include <vector>
 #include <string>
+#include <complex>
 
 class Polynomial {
 private:
@@ -23,7 +24,7 @@ public:
 
     int degree();
 
-    std::vector<double> solve(double equals);
+    std::vector<std::complex<double>> solve(double equals);
 
     Polynomial operator+(Polynomial const& obj);
 

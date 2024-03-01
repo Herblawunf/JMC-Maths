@@ -19,7 +19,7 @@ Matrix<T> operator*(Matrix<T> mat1, Matrix<T> mat2) {
 
     for (int i = 0; i < mat1.height; i++) {
         for (int j = 0; j < mat2.width; j++) {
-            double add = mat1.addIdentity;
+            T add = additiveIdentity<T>();
 
             for (int k = 0; k < mat1.width; k++) {
                 add += n1[i][k] * n2[k][j];
