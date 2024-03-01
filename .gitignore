@@ -1,3 +1,5 @@
+build/*
+
 # Created by https://www.toptal.com/developers/gitignore/api/cmake,c++,clion+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=cmake,c++,clion+all
 
@@ -125,7 +127,6 @@ fabric.properties
 
 ### CMake ###
 CMakeLists.txt.user
-CMakeLists.txt
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
