@@ -4,96 +4,96 @@
 
 #ifndef LA_MATRIX_H
 #define LA_MATRIX_H
-#include <vector>
 #include "polynomial.h"
 #include <complex>
+#include <vector>
 
-template<class T> class ColumnVector;
+template <class T> class ColumnVector;
 
-template<class T>
-class Matrix {
+template <class T> class Matrix {
 public:
-    int height;
-    int width;
-    std::vector<T> mat;
+  int height;
+  int width;
+  std::vector<T> mat;
 
-    Matrix(int h, int w, std::vector<T> m);
-    Matrix(int h, int w);
+  Matrix(int h, int w, std::vector<T> m);
+  Matrix(int h, int w);
 
-    std::string toString();
+  std::string toString();
 
-    T determinant();
+  T determinant();
 
-    std::vector<std::vector<T> > generateNested();
+  std::vector<std::vector<T>> generateNested();
 
-    std::vector<std::vector<T> > columns();
+  std::vector<std::vector<T>> columns();
 
-    Matrix<T> operator+(Matrix<T> const& obj);
+  Matrix<T> operator+(Matrix<T> const &obj);
 
-    Matrix<T> operator*(T lambda);
+  Matrix<T> operator-(Matrix<T> const &obj);
 
-    Matrix<T> r(int i, int j);
+  Matrix<T> operator*(T lambda);
 
-    Matrix<T> r(int i, T lambda);
+  Matrix<T> r(int i, int j);
 
-    Matrix<T> r(int i, int j, T lambda);
+  Matrix<T> r(int i, T lambda);
 
-    T element(int i, int j);
+  Matrix<T> r(int i, int j, T lambda);
 
-    void insert(T e, int i, int j);
+  T element(int i, int j);
 
-    void print();
+  void insert(T e, int i, int j);
 
-    Matrix<T> transpose();
+  void print();
 
-    std::pair<int, T> leadingEntry(int row);
+  Matrix<T> transpose();
 
-    Matrix<T> augment(ColumnVector<T> v);
+  std::pair<int, T> leadingEntry(int row);
 
-    bool isZero();
+  Matrix<T> augment(ColumnVector<T> v);
 
-    Matrix<double> forwardPhase();
+  bool isZero();
 
-    Matrix<double> backwardPhase();
+  Matrix<double> forwardPhase();
 
-    Matrix<double> rowReduce();
+  Matrix<double> backwardPhase();
 
-    bool operator==(Matrix<T> const& obj) const;
+  Matrix<double> rowReduce();
 
-    bool operator!=(Matrix<T> const& obj);
+  bool operator==(Matrix<T> const &obj) const;
 
-    bool isDiagonal();
+  bool operator!=(Matrix<T> const &obj);
 
-    bool invertible();
+  bool isDiagonal();
 
-    Matrix<double> inverse();
+  bool invertible();
 
-    // Shaowy05: Is Square
-    bool isSquare();
+  Matrix<double> inverse();
 
-    // Shaowy05: Upper and Lower Triangular Matrices
-    bool isUpperTriangular();
+  // Shaowy05: Is Square
+  bool isSquare();
 
-    bool isStrictlyUpperTriangular();
+  // Shaowy05: Upper and Lower Triangular Matrices
+  bool isUpperTriangular();
 
-    bool isLowerTriangular();
+  bool isStrictlyUpperTriangular();
 
-    bool isStrictlyLowerTriangular();
+  bool isLowerTriangular();
 
-    // Herblawunf: Orthonormal and Orthogonal
+  bool isStrictlyLowerTriangular();
 
-    bool isOrthogonal();
+  // Herblawunf: Orthonormal and Orthogonal
 
-    bool isOrthonormal();
+  bool isOrthogonal();
 
-    bool isSymmetric();
+  bool isOrthonormal();
 
-    bool isEigenvalue(double lambda);
+  bool isSymmetric();
 
-    std::vector<std::complex<double>> eigenvalues();
+  bool isEigenvalue(double lambda);
+
+  std::vector<std::complex<double>> eigenvalues();
 };
-
 
 #include "../src/matrix.cpp"
 
-#endif //LA_MATRIX_H
+#endif // LA_MATRIX_H
