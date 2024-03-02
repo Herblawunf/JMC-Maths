@@ -44,6 +44,20 @@ template <class T> Matrix<T>::Matrix(int h, int w) {
   mat = std::vector<T>(h * w);
 }
 
+template <class T> Matrix<T>::Matrix(std::vector<std::vector<T>> m) {
+  height = m.size();
+  width = m[0].size();
+  std::vector<T> temp = {};
+  for (auto v : m) {
+    if (v.size() != width) {
+      throw std::invalid_argument("All rows must be the same length");
+    }
+
+    temp.insert(temp.end(), v.begin(), v.end());
+  }
+  mat = temp;
+}
+
 template <class T> std::string Matrix<T>::toString() {
   std::string ret;
 

@@ -18,6 +18,7 @@ public:
 
   Matrix(int h, int w, std::vector<T> m);
   Matrix(int h, int w);
+  Matrix(std::vector<std::vector<T>> m);
 
   std::string toString();
 

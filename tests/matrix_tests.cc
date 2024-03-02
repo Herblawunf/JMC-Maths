@@ -25,3 +25,9 @@ TEST(MatrixTests, MatrixTranspose) {
 TEST(MatrixTests, MatrixDeterminant) {
   EXPECT_EQ(intMatrix1.determinant(), -2);
 }
+
+TEST(MatrixTests, NestedMatrixConstructor) {
+  Matrix<double> expected = {{{1, 2}, {3, 4}}};
+
+  EXPECT_EQ(intMatrix1, expected);
+}

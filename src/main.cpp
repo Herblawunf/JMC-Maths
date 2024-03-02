@@ -1,11 +1,4 @@
-#include "../include/LinearSystem.h"
-#include "../include/columnVector.h"
-#include "../include/linearEquation.h"
-#include "../include/matrix.h"
-#include "../include/operations.h"
-#include "../include/polynomial.h"
-#include "../include/utilities.h"
-#include "../include/vectorSets.h"
+#include "../include/include.h"
 #include <iostream>
 #include <string>
 

@@ -26,6 +26,12 @@ std::string joinWith(std::vector<std::string> v, std::string j);
 
 double findAllCoefficients(int x, std::vector<std::pair<double, int>> pairs);
 
+
+
+
+
+
+
 template <class T> Polynomial toPolynomial(T x) {
   if (!std::is_arithmetic_v<T>) {
     throw std::invalid_argument(
@@ -76,11 +82,6 @@ template <class T> bool all(std::vector<T> v, bool (*func)(T)) {
   copy.pop_back();
   return func(last) && all(copy, func);
 }
-
-// template <class T>
-// std::enable_if_t<std::is_same_v<T, Polynomial>, T> additiveIdentity() {
-//     return T({});  // Construct an empty Polynomial
-// }
 
 template <class T> T additiveIdentity() {
   if constexpr (std::is_same_v<T, Polynomial>) {
