@@ -4,36 +4,37 @@
 
 #ifndef LA_POLYNOMIAL_H
 #define LA_POLYNOMIAL_H
-#include <vector>
-#include <string>
 #include <complex>
+#include <string>
+#include <vector>
 
 class Polynomial {
 private:
-    // Polynomial is represented by a vector of (coefficient, exponent) pairs
-    std::vector<std::pair<double, int> > poly;
+  // Polynomial is represented by a vector of (coefficient, exponent) pairs
+  std::vector<std::pair<double, int>> poly;
 
 public:
-    Polynomial(std::vector<std::pair<double, int> > cs);
+  Polynomial(std::vector<std::pair<double, int>> cs);
 
-    Polynomial differentiate();
+  Polynomial differentiate();
 
-    std::string toString() const;
+  std::string toString() const;
 
-    void print();
+  void print();
 
-    int degree();
+  int degree();
 
-    std::vector<std::complex<double>> solve(double equals);
+  std::vector<std::complex<double>> solve(double equals);
 
-    Polynomial operator+(Polynomial const& obj);
+  Polynomial operator+(Polynomial const &obj);
 
-    Polynomial operator*(Polynomial const& obj);
+  Polynomial operator*(Polynomial const &obj);
 
-    friend std::ostream& operator<<(std::ostream& os, const Polynomial& obj);
+  friend std::ostream &operator<<(std::ostream &os, const Polynomial &obj);
 
-    Polynomial operator-(Polynomial const& obj);
+  Polynomial operator-(Polynomial const &obj);
+
+  double evaluate(double x);
 };
 
-
-#endif //LA_POLYNOMIAL_H
+#endif // LA_POLYNOMIAL_H

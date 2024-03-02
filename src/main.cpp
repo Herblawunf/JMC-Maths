@@ -21,6 +21,5 @@ int main() {
    Matrix<double> m1 = {3, 3, v1};
 
    print(m1.eigenvalues());
-
-  return 0;
+   return 0;
 }

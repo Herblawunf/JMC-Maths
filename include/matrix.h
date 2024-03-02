@@ -58,7 +58,7 @@ public:
 
     Matrix<double> rowReduce();
 
-    bool operator==(Matrix<T> const& obj);
+    bool operator==(Matrix<T> const& obj) const;
 
     bool operator!=(Matrix<T> const& obj);
 

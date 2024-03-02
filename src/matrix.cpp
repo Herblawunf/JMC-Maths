@@ -352,7 +352,7 @@ Matrix<double> Matrix<T>::rowReduce() {
 }
 
 template<class T>
-bool Matrix<T>::operator==(const Matrix<T> &obj) {
+bool Matrix<T>::operator==(const Matrix<T> &obj) const {
     bool checker = true;
     if(height != obj.height || width != obj.width) {
         return false;
