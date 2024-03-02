@@ -106,10 +106,6 @@ std::vector<std::complex<double>> Polynomial::solve(double equals) {
                      1.0 / 3.0)
                : bigC;
 
-    // First root
-    // double x0 = bigC == 0 ? - b / (3 * a) : (b + bigC + d0 / bigC) / (-3 *
-    // a);
-
     std::complex<double> epsilon = {-0.5, sqrt(3.0) / 2.0};
 
     std::complex<double> x0 = (-1 / (3 * a)) * (b + bigC + d0 / bigC);
@@ -120,8 +116,6 @@ std::vector<std::complex<double>> Polynomial::solve(double equals) {
         (b + epsilon * epsilon * bigC + d0 / (epsilon * epsilon * bigC));
 
     return {x0, x1, x2};
-
-    throw std::invalid_argument("Order too high to solve");
   }
   throw std::invalid_argument("Order too high to solve");
 }

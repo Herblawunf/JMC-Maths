@@ -1,4 +1,5 @@
 build/*
+.zed/*
 
 # Created by https://www.toptal.com/developers/gitignore/api/cmake,c++,clion+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=cmake,c++,clion+all
