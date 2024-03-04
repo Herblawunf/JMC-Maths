@@ -98,15 +98,20 @@ std::vector<std::complex<double>> Polynomial::solve(double equals) {
     double d0 = pow(b, 2) - 3 * a * c;
     double d1 = 2 * pow(b, 3) - 9 * a * b * c + 27 * pow(a, 2) * d;
 
-    double bigC =
+    std::complex<double> bigC =
         pow(((d1 + pow((pow(d1, 2) - 4 * pow(d0, 3)), 0.5)) / 2.0), 1.0 / 3.0);
 
-    bigC = bigC == 0
+    bigC = bigC == 0.0
                ? pow(((d1 - pow((pow(d1, 2) - 4 * pow(d0, 3)), 0.5)) / 2.0),
                      1.0 / 3.0)
                : bigC;
 
     std::complex<double> epsilon = {-0.5, sqrt(3.0) / 2.0};
+
+    if (bigC == 0.0) {
+        double root = -b / 3*a;
+        return {root, root, root};
+    }
 
     std::complex<double> x0 = (-1 / (3 * a)) * (b + bigC + d0 / bigC);
     std::complex<double> x1 =
@@ -116,6 +121,42 @@ std::vector<std::complex<double>> Polynomial::solve(double equals) {
         (b + epsilon * epsilon * bigC + d0 / (epsilon * epsilon * bigC));
 
     return {x0, x1, x2};
+  } else {
+    // Durand-Kerner method will be used to approximate polynomial roots
+
+    Polynomial newPoly = *this - toPolynomial(equals);
+
+    std::vector<std::vector<std::complex<double>>> iterations = {};
+    std::complex<double> initial = {0.4, 0.9};
+
+    for (int i = 0; i < degree(); i++) {
+        iterations.push_back({});
+        iterations[i].push_back(pow(initial, i));
+    }
+
+    for (int i = 0; i < 100; i++) {
+        for (int j = 0; j < degree(); j++) {
+            std::complex<double> numerator = newPoly.evaluate(iterations[j][i]);
+            std::complex<double> denominator = 1;
+
+            for (int k = 0; k < degree(); k++) {
+                if (k != j) {
+                    denominator *= iterations[j][i] - iterations[k].back();
+                }
+            }
+            std::complex<double> nextIteration = iterations[j][i] - (numerator / denominator);
+
+            iterations[j].push_back(nextIteration);
+        }
+    }
+
+    std::vector<std::complex<double>> ret = {};
+
+    for (auto iter : iterations) {
+        ret.push_back(iter.back());
+    }
+
+    return ret;
   }
   throw std::invalid_argument("Order too high to solve");
 }
@@ -152,8 +193,8 @@ Polynomial Polynomial::operator-(const Polynomial &obj) {
   return *this + (Polynomial({{-1, 0}}) * obj);
 }
 
-double Polynomial::evaluate(double x) {
-  double ret = 0;
+std::complex<double> Polynomial::evaluate(std::complex<double> x) {
+    std::complex<double> ret = 0;
 
   for (auto term : poly) {
     ret += term.first * pow(x, term.second);

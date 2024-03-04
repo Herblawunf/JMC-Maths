@@ -34,7 +34,7 @@ public:
 
   Polynomial operator-(Polynomial const &obj);
 
-  double evaluate(double x);
+  std::complex<double> evaluate(std::complex<double> x);
 };
 
 #endif // LA_POLYNOMIAL_H
