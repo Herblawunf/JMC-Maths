@@ -13,7 +13,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(la
-        include/classTraits.h
+        src/classTraits.h
         src/utilities.cpp
         src/matrix.cpp
         src/columnVector.cpp

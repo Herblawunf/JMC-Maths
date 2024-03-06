@@ -1,8 +1,8 @@
 //
 // Created by Dylan Beharall on 06/03/2024.
 //
-#include "polynomial.h"
-#include "utilities.h"
+#include "../include/polynomial.h"
+#include "../include/utilities.h"
 
 #pragma once
 #include <type_traits>

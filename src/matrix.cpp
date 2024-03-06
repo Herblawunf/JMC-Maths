@@ -9,7 +9,7 @@
 #include "../include/operations.h"
 #include "../include/utilities.h"
 #include "../include/vectorSets.h"
-#include "../include/classTraits.h"
+#include "classTraits.h"
 #include <complex>
 #include <iostream>
 #include <sstream>
