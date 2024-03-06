@@ -31,3 +31,14 @@ TEST(MatrixTests, NestedMatrixConstructor) {
 
   EXPECT_EQ(intMatrix1, expected);
 }
+
+TEST(MatrixTests, MatrixScalarMultiplication) {
+  Matrix<double> result = {2, 2, {2, 4, 6, 8}};
+  EXPECT_EQ(intMatrix1 * 2.0, result);
+  EXPECT_EQ(2.0 * intMatrix1, result);
+}
+
+TEST(MatrixTests, MatrixInverse) {
+  Matrix<double> result = {2, 2, {-2, 1, 1.5, -0.5}};
+  EXPECT_EQ(intMatrix1.inverse(), result);
+}

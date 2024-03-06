@@ -5,11 +5,9 @@
 #ifndef LA_UTILITIES_H
 #define LA_UTILITIES_H
 #include "polynomial.h"
-// #include "matrix.h"
 #include <iostream>
 #include <set>
 #include <string>
-#include <type_traits>
 
 template <class T> class Matrix;
 template <class T> class ColumnVector;
@@ -25,12 +23,6 @@ std::string joinWith(std::vector<double> v, std::string j);
 std::string joinWith(std::vector<std::string> v, std::string j);
 
 double findAllCoefficients(int x, std::vector<std::pair<double, int>> pairs);
-
-
-
-
-
-
 
 template <class T> Polynomial toPolynomial(T x) {
   if (!std::is_arithmetic_v<T>) {
@@ -81,17 +73,6 @@ template <class T> bool all(std::vector<T> v, bool (*func)(T)) {
   T last = v.back();
   copy.pop_back();
   return func(last) && all(copy, func);
-}
-
-template <class T> T additiveIdentity() {
-  if constexpr (std::is_same_v<T, Polynomial>) {
-    return Polynomial({});
-  }
-  if constexpr (isArithmetic<T>()) {
-    return 0.0;
-  }
-
-  throw std::invalid_argument("Additive identity cannot be found");
 }
 
 #endif // LA_UTILITIES_H

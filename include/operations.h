@@ -6,6 +6,7 @@
 #define LA_OPERATIONS_H
 #include "matrix.h"
 #include "columnVector.h"
+#include "classTraits.h"
 
 template<class T>
 Matrix<T> operator*(Matrix<T> mat1, Matrix<T> mat2) {

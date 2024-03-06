@@ -13,19 +13,23 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(la
-        src/main.cpp
+        include/classTraits.h
+        src/utilities.cpp
         src/matrix.cpp
         src/columnVector.cpp
-        src/utilities.cpp
         src/linearEquation.cpp
         src/LinearSystem.cpp
-        src/polynomial.cpp)
+        src/polynomial.cpp
+        src/main.cpp
+        )
+target_include_directories(la PRIVATE include)
 
 enable_testing()
 
 add_executable(
         matrix_tests
         tests/matrix_tests.cc
+        src/utilities.cpp
 )
 target_link_libraries(
         matrix_tests

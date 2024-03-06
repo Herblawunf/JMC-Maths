@@ -2,8 +2,7 @@
 // Created by Dylan Beharall on 28/01/2024.
 //
 
-#ifndef LA_POLYNOMIAL_H
-#define LA_POLYNOMIAL_H
+#pragma once
 #include <complex>
 #include <string>
 #include <vector>
@@ -37,4 +36,3 @@ public:
   std::complex<double> evaluate(std::complex<double> x);
 };
 
-#endif // LA_POLYNOMIAL_H
