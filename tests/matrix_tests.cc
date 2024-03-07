@@ -42,3 +42,7 @@ TEST(MatrixTests, MatrixInverse) {
   Matrix<double> result = {2, 2, {-2, 1, 1.5, -0.5}};
   EXPECT_EQ(intMatrix1.inverse(), result);
 }
+
+TEST(MatrixTests, MatrixScalarDivision) {
+  EXPECT_EQ(intMatrix2 / 2.0, intMatrix1);
+}

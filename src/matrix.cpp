@@ -16,7 +16,6 @@
 #include <utility>
 #include <vector>
 
-
 template <class T> Matrix<Polynomial> matrixToPolynomial(Matrix<T> m) {
   if (!isArithmetic<T>()) {
     throw std::invalid_argument(
@@ -167,6 +166,10 @@ template <class T> Matrix<T> Matrix<T>::operator*(T lambda) {
   for (int i = 0; i < height * width; i++)
     newMat[i] = newMat[i] * lambda;
   return {height, width, newMat};
+}
+
+template <class T> Matrix<T> Matrix<T>::operator/(T lambda) {
+  return *this * (1 / lambda);
 }
 
 template <class T> Matrix<T> Matrix<T>::r(int i, int j) {
