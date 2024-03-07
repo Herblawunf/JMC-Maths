@@ -38,6 +38,3 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(matrix_tests)
-
-project(jmcmaths VERSION 1.0 DESCRIPTION "A Maths library for c++")
-

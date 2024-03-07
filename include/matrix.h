@@ -34,8 +34,6 @@ public:
 
   Matrix<T> operator*(T lambda);
 
-  Matrix<T> operator/(T lambda);
-
   Matrix<T> r(int i, int j);
 
   Matrix<T> r(int i, T lambda);
