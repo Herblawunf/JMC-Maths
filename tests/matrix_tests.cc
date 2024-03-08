@@ -1,4 +1,4 @@
-#include "../include/include.h"
+#include "../include/jmcmaths"
 #include <gtest/gtest.h>
 
 Matrix<double> intMatrix1 = {2, 2, {1, 2, 3, 4}};

@@ -2,8 +2,8 @@
 // Created by Dylan Beharall on 02/03/2024.
 //
 
-#ifndef LA_INCLUDE_H
-#define LA_INCLUDE_H
+#ifndef LA_JMCMATHS_
+#define LA_JMCMATHS_
 
 #include "utilities.h"
 #include "columnVector.h"
@@ -14,4 +14,4 @@
 #include "polynomial.h"
 #include "vectorSets.h"
 
-#endif //LA_INCLUDE_H
+#endif //LA_JMCMATHS_

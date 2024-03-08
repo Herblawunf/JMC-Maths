@@ -20,8 +20,7 @@ add_executable(la
         src/linearEquation.cpp
         src/LinearSystem.cpp
         src/polynomial.cpp
-        src/main.cpp
-        )
+)
 target_include_directories(la PRIVATE include)
 
 enable_testing()
@@ -38,3 +37,20 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(matrix_tests)
+
+project(jmcmaths)
+
+add_library(jmcmaths STATIC
+        src/classTraits.h
+        src/utilities.cpp
+        src/matrix.cpp
+        src/columnVector.cpp
+        src/linearEquation.cpp
+        src/LinearSystem.cpp
+        src/polynomial.cpp)
+
+add_executable(target ../target/main.cpp)
+
+target_include_directories(jmcmaths PUBLIC include/)
+
+target_link_libraries(target jmcmaths)
