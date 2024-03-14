@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.25)
-project(la)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -11,17 +10,6 @@ FetchContent_Declare(
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
-
-add_executable(la
-        src/classTraits.h
-        src/utilities.cpp
-        src/matrix.cpp
-        src/columnVector.cpp
-        src/linearEquation.cpp
-        src/LinearSystem.cpp
-        src/polynomial.cpp
-)
-target_include_directories(la PRIVATE include)
 
 enable_testing()
 
